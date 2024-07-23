@@ -45,6 +45,9 @@ jobs:
         with:
           node-version: '18'
 
+      - name: "extract dependencies and check availability"
+        run: npm ci
+
       - name: "Test job"
         run: npm test
 
@@ -60,6 +63,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-          
+
+      - name: "extract dependencies and check availability"
+        run: npm ci
+
       - name: "build job"
         run: npm run build
