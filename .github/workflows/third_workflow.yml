@@ -1,5 +1,5 @@
 #github actions
-name: "workflow1"
+name: "workflow3_ with Event: issue"
 run-name: multiple jobs
 on: 
   issues:
