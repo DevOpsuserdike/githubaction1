@@ -8,6 +8,7 @@ on:
       - opened
 jobs:
   eventdetails:
+    runs-on: ubuntu-latest
     steps:
       - name: display events details.
         run : ${{ tojson(github) }}
