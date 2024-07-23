@@ -3,16 +3,16 @@ name: "workflow1"
 run-name: multiple jobs
 on: 
   workflow_dispatch:
-#  push:
-#    branches:
+  push:
+#    branches-ignore:
 #      - 'main'
-#     branches-ignore:
-#       - dev
+    branches:
+      - 'dev'
 #    tags:
 #      - v.1.0.0
 
-  pull_request:
-    types: [opened, reopened]
+#  pull_request:
+#    types: [opened, reopened]
 #    paths-ignore:
 #      - .github/workflows/*
 jobs:
@@ -28,8 +28,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+      
+      - name: new variiable
+        run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
 
   installdep:
+    needs: [lintjob]
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
@@ -46,6 +50,7 @@ jobs:
         run: npm ci
   
   testjob:
+    needs: [installdep]
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
@@ -65,6 +70,7 @@ jobs:
         run: npm test
 
   buildjob:
+    needs: [testjob]
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
@@ -81,4 +87,36 @@ jobs:
         run: npm ci
 
       - name: "build job"
-        run: npm run build
+        run: |
+          npm install
+          npm run build
+
+      - uses: actions/upload-artifact@v4
+        with:
+    # Name of the artifact to upload.
+    # Optional. Default is 'artifact'
+          name: artifacts-name
+
+    # A file, directory or wildcard pattern that describes what to upload
+    # Required.
+          path: |
+            package-lock.json
+            dist/*
+  downloadartifacts:
+    needs: buildjob
+    runs-on: ubuntu-latest
+    steps:
+      - name : workspace details
+        run: echo $GITHUB_WORKSPACE
+
+      - uses: actions/download-artifact@v4
+        with: 
+    # Name of the artifact to download.
+    # If unspecified, all artifacts for the run are downloaded.
+    # Optional.
+          name: artifacts-name
+      - name : files
+        run: |
+          pwd
+          ls -la 
+      
