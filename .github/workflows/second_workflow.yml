@@ -1,9 +1,9 @@
 #github actions
 name: "workflow1"
-run-name: Single job with multiple steps
+run-name: multiple jobs
 on: [push]
 jobs:
-  alltogether:
+  lint job:
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
@@ -16,13 +16,30 @@ jobs:
         with:
           node-version: '18'
 
+  installdep:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "lint job"
+        uses: actions/checkout@v4
+        with:
+          repository: 'DevOpsuserdike/githubaction1'
+
+      - name: "setup nodejs"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
       - name: "extract dependencies and check availability"
         run: npm ci
-
+  
+  testjob:
+    runs-on: ubuntu-latest
+    steps:
       - name: "Test job"
         run: npm test
 
+  buildjob:
+    runs-on: ubuntu-latest
+    steps:
       - name: "build job"
         run: npm run build
-
-
