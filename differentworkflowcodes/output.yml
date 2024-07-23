@@ -25,6 +25,9 @@ jobs:
         id: var
         run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
 
+      - name: generate random number
+        run: echo "$RANDOM"
+
   installdep:
     needs: [lintjob]
     runs-on: ubuntu-latest
