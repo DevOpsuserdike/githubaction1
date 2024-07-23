@@ -107,7 +107,7 @@ jobs:
         run: npm test
 
   buildjob:
-    if: false
+    if: ${{ failure() }}
     needs: [testjob]
     outputs:
       files: ${{ steps.filesGenerated.outputs.files }}
