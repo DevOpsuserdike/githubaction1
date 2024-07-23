@@ -1,6 +1,6 @@
 #github actions
 name: "outputvariable"
-run-name: multiple jobs
+run-name: outputvariable
 on: 
   workflow_dispatch:
   push:

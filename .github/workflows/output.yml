@@ -1,6 +1,6 @@
 #github actions
-name: "workflow1"
-run-name: multiple jobs
+name: "outputvariable"
+run-name: outputvariable
 on: 
   workflow_dispatch:
   push:
@@ -16,7 +16,7 @@ on:
 #    paths-ignore:
 #      - .github/workflows/*
 jobs:
-  lintjob:
+  firstjob:
     outputs:
       namevar: ${{ steps.var.outputs.name }}
     runs-on: ubuntu-latest
@@ -25,10 +25,13 @@ jobs:
         id: var
         run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
 
-  installdep:
-    needs: [lintjob]
+      - name: generate random number
+        run: echo "$RANDOM"
+
+  anotherjob:
+    needs: [firstjob]
     runs-on: ubuntu-latest
     steps:
       - name: "getoutput details"
-        run: echo "${{ needs.lintjob.outputs.namevar }}"
+        run: echo "${{ needs.firstjob.outputs.namevar }}"
         
