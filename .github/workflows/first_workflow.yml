@@ -23,6 +23,6 @@ jobs:
         run: npm test
 
       - name: "build job"
-        run: npm build
+        run: npm run build
 
 
