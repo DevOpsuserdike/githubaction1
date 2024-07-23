@@ -7,8 +7,11 @@ on:
       - 'main'
     tags:
       - v.1.0.0
-    paths-ignore:
-      - .github/workflows/*
+
+  pull_request:
+    types: [opened, reopened]
+#    paths-ignore:
+#      - .github/workflows/*
 
 jobs:
   alltogether:
