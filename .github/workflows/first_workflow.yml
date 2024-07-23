@@ -7,12 +7,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
-        run: echo "lint job"
+        uses: actions/checkout@v4
+        with:
+          repository: 'githubaction1'
 
-      - name: "test job"
-        run: echo "test job"
+      - name: "setup nodejs"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: "extract dependencies and check availability"
+        run: npm ci
+
+      - name: "Test job"
+        run: npm test
 
       - name: "build job"
-        run: echo "build job"
+        run: npm build
 
 
