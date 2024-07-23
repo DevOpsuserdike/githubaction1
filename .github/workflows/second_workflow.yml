@@ -1,6 +1,10 @@
 #github actions
 name: "workflow1"
 run-name: multiple jobs
+env:
+  name: "Siddhesh"
+  repository: 'DevOpsuserdike/githubaction1'
+
 on: 
   workflow_dispatch:
   push:
@@ -30,7 +34,7 @@ jobs:
           node-version: '18'
       
       - name: new variiable
-        run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
+        run: echo "name=${{ env.name}}" >> "$GITHUB_OUTPUT"
 
   installdep:
     needs: [lintjob]
@@ -39,7 +43,7 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+          repository: ${{ env.repository}}
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
@@ -104,7 +108,7 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+          repository: ${{ env.repository}}
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
