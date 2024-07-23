@@ -3,16 +3,16 @@ name: "workflow1"
 run-name: multiple jobs
 on: 
   workflow_dispatch:
-#  push:
-#    branches:
+  push:
+#    branches-ignore:
 #      - 'main'
-#     branches-ignore:
-#       - dev
+    branches:
+      - 'dev'
 #    tags:
 #      - v.1.0.0
 
-  pull_request:
-    types: [opened, reopened]
+#  pull_request:
+#    types: [opened, reopened]
 #    paths-ignore:
 #      - .github/workflows/*
 jobs:
