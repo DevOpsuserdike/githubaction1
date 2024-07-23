@@ -1,12 +1,13 @@
 #github actions
 name: "workflow1"
 run-name: Single job with multiple steps
-on: 
-  push:
-    branches:
-      - 'main'
-    tags:
-      - v.1.0.0
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - 'main'
+#    tags:
+#      - v.1.0.0
 
   pull_request:
     types: [opened, reopened]
