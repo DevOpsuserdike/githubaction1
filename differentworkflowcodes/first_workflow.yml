@@ -1,7 +1,21 @@
 #github actions
 name: "workflow1"
 run-name: Single job with multiple steps
-on: [push]
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - 'main'
+#     branches-ignore:
+#       - dev
+#    tags:
+#      - v.1.0.0
+
+  pull_request:
+    types: [opened, reopened]
+#    paths-ignore:
+#      - .github/workflows/*
+
 jobs:
   alltogether:
     runs-on: ubuntu-latest
