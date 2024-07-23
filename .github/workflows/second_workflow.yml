@@ -1,9 +1,10 @@
 #github actions
 name: "workflow1"
 run-name: multiple jobs
-env:
-  name: "Siddhesh"
-  repository: 'DevOpsuserdike/githubaction1'
+
+#env:
+#  name: "Siddhesh"
+#  repository: 'DevOpsuserdike/githubaction1'
 
 on: 
   workflow_dispatch:
@@ -22,11 +23,13 @@ on:
 jobs:
   lintjob:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+          repository: ${{ vars.REPOSITORY }}
+#          repository: 'DevOpsuserdike/githubaction1'
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
@@ -34,7 +37,8 @@ jobs:
           node-version: '18'
       
       - name: new variiable
-        run: echo "name=${{ env.name}}" >> "$GITHUB_OUTPUT"
+        run: echo "name=${{ vars.name}}" >> "$GITHUB_OUTPUT"
+#        run: echo "name=${{ env.name}}" >> "$GITHUB_OUTPUT"
 
   installdep:
     needs: [lintjob]
@@ -43,7 +47,8 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: ${{ env.repository}}
+#          repository: ${{ env.repository}}
+          repository: ${{ vars.REPOSITORY }}  
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
@@ -73,7 +78,8 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+          repository: ${{ vars.REPOSITORY }}
+#          repository: 'DevOpsuserdike/githubaction1'
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
@@ -108,7 +114,8 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: ${{ env.repository}}
+          repository: ${{ vars.REPOSITORY }}
+#          repository: ${{ env.repository}}
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
@@ -174,4 +181,5 @@ jobs:
     steps:
       - name: files filesGenerated
         run: echo ${{ needs.buildjob.outputs.files }}
+  
       
