@@ -65,11 +65,13 @@ jobs:
 
       - name: caching dependencies
         uses: actions/cache@v4
+        id: cachedetails
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ steps.npm-cache-dir.outputs.date }}-${{ hashFiles('**/package-lock.json') }}
+          key: cachedata-${{ hashFiles('**/package-lock.json') }}
           
       - name: "extract dependencies and check availability"
+        if: steps.cachedetails.cache-hit != 'true '
         run: npm ci
   
   testjob:
@@ -96,11 +98,13 @@ jobs:
 
       - name: caching dependencies
         uses: actions/cache@v4
+        id: cachedetails
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ steps.npm-cache-dir.outputs.date }}-${{ hashFiles('**/package-lock.json') }}
-
+          key: cachedata-${{ hashFiles('**/package-lock.json') }}
+          
       - name: "extract dependencies and check availability"
+        if: steps.cachedetails.cache-hit != 'true '
         run: npm ci
 
       - name: "Test job"
@@ -138,11 +142,13 @@ jobs:
 
       - name: caching dependencies
         uses: actions/cache@v4
+        id: cachedetails
         with:
           path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ steps.npm-cache-dir.outputs.date }}-${{ hashFiles('**/package-lock.json') }}
-
+          key: cachedata-${{ hashFiles('**/package-lock.json') }}
+          
       - name: "extract dependencies and check availability"
+        if: steps.cachedetails.cache-hit != 'true '
         run: npm ci
 
       - name: "build job"
