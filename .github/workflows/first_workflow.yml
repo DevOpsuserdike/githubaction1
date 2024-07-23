@@ -1,12 +1,12 @@
 #github actions
 name: "workflow1"
 run-name: Single job with multiple steps
-on: [push]
-#  push:
-#    branches:
-#      - 'main'
-#    tags:
-#      - v.1.0.0
+on: 
+  push:
+    branches:
+      - 'main'
+    tags:
+      - v.1.0.0
 #    paths-ignore:
 #      - .github/workflows/*
 
