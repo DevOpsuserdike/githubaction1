@@ -3,16 +3,26 @@ name: "workflow1"
 run-name: Siddhesh is learning
 on: [push]
 jobs:
-  alltogether:
+  lintjob:
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
         run: echo "lint job"
 
+  testjob:
+    runs-on: ubuntu-latest
+    steps:
       - name: "test job"
         run: echo "test job"
 
+  buildjob:
+    runs-on: ubuntu-latest
+    steps:
       - name: "build job"
         run: echo "build job"
+
+      
+
+      
 
 
