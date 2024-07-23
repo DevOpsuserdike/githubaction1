@@ -1,6 +1,11 @@
 #github actions
 name: "workflow1"
 run-name: multiple jobs
+
+#env:
+#  name: "Siddhesh"
+#  repository: 'DevOpsuserdike/githubaction1'
+
 on: 
   workflow_dispatch:
   push:
@@ -13,16 +18,19 @@ on:
 
 #  pull_request:
 #    types: [opened, reopened]
-#    paths-ignore:
+    paths-ignore:
+      - differentworkflowcodes/*
 #      - .github/workflows/*
 jobs:
   lintjob:
     runs-on: ubuntu-latest
+    environment: dev
     steps:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+          repository: ${{ vars.REPOSITORY }}
+#          repository: 'DevOpsuserdike/githubaction1'
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
@@ -30,7 +38,8 @@ jobs:
           node-version: '18'
       
       - name: new variiable
-        run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
+        run: echo "name=${{ vars.name}}" >> "$GITHUB_OUTPUT"
+#        run: echo "name=${{ env.name}}" >> "$GITHUB_OUTPUT"
 
   installdep:
     needs: [lintjob]
@@ -39,12 +48,26 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+#          repository: ${{ env.repository}}
+          repository: ${{ vars.REPOSITORY }}  
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+      
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: |
+          echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+
+      - name: caching dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ steps.npm-cache-dir.outputs.date }}-${{ hashFiles('**/package-lock.json') }}
           
       - name: "extract dependencies and check availability"
         run: npm ci
@@ -56,12 +79,26 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+          repository: ${{ vars.REPOSITORY }}
+#          repository: 'DevOpsuserdike/githubaction1'
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: |
+          echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+
+      - name: caching dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ steps.npm-cache-dir.outputs.date }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: "extract dependencies and check availability"
         run: npm ci
@@ -71,17 +108,33 @@ jobs:
 
   buildjob:
     needs: [testjob]
+    outputs:
+      files: ${{ steps.filesGenerated.outputs.files }}
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'DevOpsuserdike/githubaction1'
+          repository: ${{ vars.REPOSITORY }}
+#          repository: ${{ env.repository}}
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        shell: bash
+        run: |
+          echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+          echo "date=$(/bin/date -u "+%Y%m%d")" >> $GITHUB_OUTPUT
+
+      - name: caching dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ steps.npm-cache-dir.outputs.date }}-${{ hashFiles('**/package-lock.json') }}
 
       - name: "extract dependencies and check availability"
         run: npm ci
@@ -90,6 +143,10 @@ jobs:
         run: |
           npm install
           npm run build
+
+      - name: file details
+        id: filesGenerated
+        run: find dist/assets/index* -type f -exec echo 'files={}' ';' >> "$GITHUB_OUTPUT"
 
       - uses: actions/upload-artifact@v4
         with:
@@ -119,4 +176,11 @@ jobs:
         run: |
           pwd
           ls -la 
+  filesgenerated:
+    needs: [buildjob]
+    runs-on: ubuntu-latest
+    steps:
+      - name: files filesGenerated
+        run: echo ${{ needs.buildjob.outputs.files }}
+  
       
