@@ -18,7 +18,8 @@ on:
 
 #  pull_request:
 #    types: [opened, reopened]
-#    paths-ignore:
+    paths-ignore:
+      - differentworkflowcodes/*
 #      - .github/workflows/*
 jobs:
   lintjob:

@@ -1,0 +1,8 @@
+variables:
+    1. defined in workflow called: ${{ env.name}}
+    2. defined on organization level  ${{ vars.name}} ${{ secrets.name}}
+    3. repository level  ${{ vars.name}} ${{ secrets.name}}
+
+    environemt variable
+    environemnt: test then all test enviroenmt will reflrct in workflow.
+
