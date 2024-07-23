@@ -19,6 +19,7 @@ jobs:
   firstjob:
     outputs:
       namevar: ${{ steps.var.outputs.name }}
+      randomnyum: ${{ steps.random.outputs.ranomnumber }}
     runs-on: ubuntu-latest
     steps:      
       - name: new variable
@@ -26,7 +27,8 @@ jobs:
         run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
 
       - name: generate random number
-        run: echo "$RANDOM"
+        id: random
+        run: echo "ranomnumber=$RANDOM" >> "$GITHUB_OUTPUT"
 
   anotherjob:
     needs: [firstjob]
@@ -34,4 +36,7 @@ jobs:
     steps:
       - name: "getoutput details"
         run: echo "${{ needs.firstjob.outputs.namevar }}"
+
+      - name: "random number"
+        run: echo "${{ needs.firstjob.outputs.randomnyum }}"
         
