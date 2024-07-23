@@ -9,7 +9,7 @@ jobs:
       - name: "lint job"
         uses: actions/checkout@v4
         with:
-          repository: 'githubaction1'
+          repository: 'DevOpsuserdike/githubaction1'
 
       - name: "setup nodejs"
         uses: actions/setup-node@v4
