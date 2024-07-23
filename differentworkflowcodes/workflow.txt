@@ -8,3 +8,4 @@ only that specific job will be run and all other job after failed job will be sk
 job level: if condition only
 steps level: if condition and continue on error 
 
+continue on error: will trigger all future jobs
