@@ -1,0 +1,34 @@
+#github actions
+name: "workflow1"
+run-name: multiple jobs
+on: 
+  workflow_dispatch:
+  push:
+#    branches-ignore:
+#      - 'main'
+    branches:
+      - 'dev'
+#    tags:
+#      - v.1.0.0
+
+#  pull_request:
+#    types: [opened, reopened]
+#    paths-ignore:
+#      - .github/workflows/*
+jobs:
+  lintjob:
+    outputs:
+      namevar: ${{ steps.var.outputs.name }}
+    runs-on: ubuntu-latest
+    steps:      
+      - name: new variable
+        id: var
+        run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
+
+  installdep:
+    needs: [lintjob]
+    runs-on: ubuntu-latest
+    steps:
+      - name: "getoutput details"
+        run: echo "${{ needs.lintjob.outputs.namevar }}"
+        
