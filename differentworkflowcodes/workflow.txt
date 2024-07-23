@@ -5,3 +5,6 @@ if one job failed the other jobs will be skip if those are dependent jobs.
 
 only that specific job will be run and all other job after failed job will be skip
 
+job level: if condition only
+steps level: if condition and continue on error 
+
