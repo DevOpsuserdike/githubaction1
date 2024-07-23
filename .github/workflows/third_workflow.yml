@@ -1,4 +1,5 @@
 #github actions
+#whne new issue is raised pipeline is triggered
 name: "workflow3_ with Event: issue"
 run-name: multiple jobs
 on: 
