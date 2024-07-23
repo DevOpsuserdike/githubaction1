@@ -1,6 +1,6 @@
 #github actions
 name: "workflow1"
-run-name: Siddhesh is learning
+run-name: Single job with multiple steps
 on: [push]
 jobs:
   alltogether:
