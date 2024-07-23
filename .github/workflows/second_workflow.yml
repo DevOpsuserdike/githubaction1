@@ -104,10 +104,15 @@ jobs:
         run: npm ci
 
       - name: "Test job"
+        id: failed
         run: npm test
 
+      - name: "next to fail job"
+        if: failure() && steps.failed.outcome == 'failure' 
+        run: echo "Previous job got failed."
+
   buildjob:
-    if: ${{ failure() && jobs.testjob.result == 'failure' }}
+#    if: failure()
     needs: [testjob]
     outputs:
       files: ${{ steps.filesGenerated.outputs.files }}
