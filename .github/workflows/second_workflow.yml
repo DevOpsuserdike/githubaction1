@@ -35,11 +35,31 @@ jobs:
   testjob:
     runs-on: ubuntu-latest
     steps:
+      - name: "lint job"
+        uses: actions/checkout@v4
+        with:
+          repository: 'DevOpsuserdike/githubaction1'
+
+      - name: "setup nodejs"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
       - name: "Test job"
         run: npm test
 
   buildjob:
     runs-on: ubuntu-latest
     steps:
+      - name: "lint job"
+        uses: actions/checkout@v4
+        with:
+          repository: 'DevOpsuserdike/githubaction1'
+
+      - name: "setup nodejs"
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
       - name: "build job"
         run: npm run build
