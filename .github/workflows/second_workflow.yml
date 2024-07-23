@@ -99,3 +99,19 @@ jobs:
           path: |
             package-lock.json
             dist/*
+  downloadartifacts:
+    needs: buildjob
+    runs-on: ubuntu-latest
+    steps:
+      - name : workspace details
+        run: echo $GITHUB_WORKSPACE
+
+      - uses: actions/download-artifact@v4
+        with: 
+    # Name of the artifact to download.
+    # If unspecified, all artifacts for the run are downloaded.
+    # Optional.
+          name: artifacts-name
+      - name : files
+        run: ls -la 
+      
