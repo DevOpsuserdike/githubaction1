@@ -38,3 +38,6 @@ jobs:
 
       - name: "build job"
         run: npm run build
+
+      - name: fetch file name
+        run: find dist/assets/index* -type f -exec echo 'files={}' ';'
