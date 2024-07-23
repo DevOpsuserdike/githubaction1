@@ -3,7 +3,7 @@ name: "workflow1"
 run-name: multiple jobs
 on: [push]
 jobs:
-  lint job:
+  lintjob:
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
