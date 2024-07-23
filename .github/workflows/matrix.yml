@@ -26,7 +26,11 @@ jobs:
         version: [10, 12, 14]
         exclude:
           - os: ubuntu-20.04
-            version: 14
+            version: [10, 14, 12]
+        include:
+          - os: ubuntu-latest
+            version: 10
+        
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/setup-node@v4
