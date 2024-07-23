@@ -30,6 +30,7 @@ jobs:
           node-version: '18'
 
   installdep:
+    needs: [lintjob]
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
@@ -46,6 +47,7 @@ jobs:
         run: npm ci
   
   testjob:
+    needs: [installdep]
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
@@ -65,6 +67,7 @@ jobs:
         run: npm test
 
   buildjob:
+    needs: [testjob]
     runs-on: ubuntu-latest
     steps:
       - name: "lint job"
