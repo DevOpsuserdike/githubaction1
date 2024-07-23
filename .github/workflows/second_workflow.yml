@@ -28,6 +28,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
+      
+      - name: new variiable
+        run: echo "name=Siddhesh" >> "$GITHUB_OUTPUT"
 
   installdep:
     needs: [lintjob]
@@ -113,5 +116,7 @@ jobs:
     # Optional.
           name: artifacts-name
       - name : files
-        run: ls -la 
+        run: |
+          pwd
+          ls -la 
       
