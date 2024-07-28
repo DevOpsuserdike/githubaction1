@@ -10,14 +10,25 @@ on:
     secrets:
       envPAT:
         required: true
+    outputs:
+      workflow_output1:
+        description: "The first job output"
+        value: ${{ jobs.job1.outputs.string1 }}
+
 
 jobs:
   job1:
     runs-on: ubuntu-latest
+    outputs:
+      string1: ${{ steps.out.outputs.string1 }}
     steps:
       - name: outputs
         run: echo "Hi from ${{ inputs.username }}"
 
       - name: outputs
         run: echo "Secret is ${{ secrets.envPAT }}"
+
+      - name: sendoutput to main workflow 
+        id: out
+        run: echo "string1= My Name is Siddhesh" >> "$GITHUB_OUTPUT" 
 
