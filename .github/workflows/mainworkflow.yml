@@ -10,3 +10,6 @@ jobs:
     steps:
       - name: first job
         run: echo "first job"
+      
+      - name: wsecond-job
+        uses: .github/workflows/reusable.yml
