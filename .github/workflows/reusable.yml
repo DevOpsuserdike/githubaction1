@@ -19,5 +19,5 @@ jobs:
         run: echo "Hi from ${{ inputs.username }}"
 
       - name: outputs
-        run: echo "Secret is ${{ inputs.envPAT }}"
+        run: echo "Secret is ${{ secrets.envPAT }}"
 
