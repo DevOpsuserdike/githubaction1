@@ -9,7 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: first job
-        run: echo "first job"
+        run: |
+          echo "first job"
+          echo pwd
+          ech ls -la
       
-      - name: wsecond-job
-        uses: .github/workflows/reusable.yml
+#      - name: wsecond-job
+#        uses: .github/workflows/reusable.yml
