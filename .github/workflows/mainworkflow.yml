@@ -8,11 +8,16 @@ jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          repository: 'DevOpsuserdike/githubaction1'
+
       - name: first job
         run: |
           echo "first job"
           pwd
           ls -la
       
-#      - name: wsecond-job
-#        uses: .github/workflows/reusable.yml
+      - name: wsecond-job
+        uses: .github/workflows/reusable.yml
