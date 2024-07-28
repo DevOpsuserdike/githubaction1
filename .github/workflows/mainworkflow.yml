@@ -1,6 +1,9 @@
 name: "main workflow to call reusable workflow"
 on :
   workflow_dispatch:
+  push:
+    branches:
+      - dev
 jobs:
   job1:
     runs-on: ubuntu-latest
