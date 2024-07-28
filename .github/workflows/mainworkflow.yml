@@ -23,4 +23,5 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       username: Dike
+    secrets:
       envPAT: ${{ secrets.SECRETS_SAMPLE}}
