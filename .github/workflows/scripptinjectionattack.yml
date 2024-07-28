@@ -1,8 +1,6 @@
 name: Label new issue
 on: 
   issues:
-    types: 
-      - opened
 jobs:
   job1:
     runs-on: ubuntu-latest
