@@ -1,0 +1,13 @@
+name: Label new issue
+on: 
+  issues:
+    types:
+      - opened
+jobs:
+  job1:
+    runs-on: ubuntu-latest
+    steps:
+      - name: assign a Label
+        run: |
+          echo "new issue is created"
+          echo "${{ tojson(github.event.issue.*) }}"
