@@ -7,6 +7,9 @@ on:
         default: 'Siddhesh'
         required: false
         type: string
+    secrets:
+      envPAT:
+        required: true
 
 jobs:
   job1:
@@ -14,4 +17,7 @@ jobs:
     steps:
       - name: outputs
         run: echo "Hi from ${{ inputs.username }}"
+
+      - name: outputs
+        run: echo "Secret is ${{ inputs.envPAT }}"
 
