@@ -1,5 +1,6 @@
 name: Label new issue
 on: 
+  push:
   issues:
     types: [opened, edited, milestoned]
 
