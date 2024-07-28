@@ -1,7 +1,8 @@
 name: Label new issue
 on: 
   issues:
-    types: [opened, edited, milestoned]
+    types: 
+      - opened
 jobs:
   job1:
     runs-on: ubuntu-latest
