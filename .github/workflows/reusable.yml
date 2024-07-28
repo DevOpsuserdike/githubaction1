@@ -1,9 +1,17 @@
 name: "reusableworkflow"
-on: workflow_call
+on: 
+  workflow_call:
+    inputs:
+      username:
+        description: 'A username passed from the caller workflow'
+        default: 'Siddhesh'
+        required: false
+        type: string
+
 jobs:
   job1:
     runs-on: ubuntu-latest
     steps:
       - name: outputs
-        run: echo "Hi from reusable workflow"
+        run: echo "Hi from ${{ inputs.username }}"
 
