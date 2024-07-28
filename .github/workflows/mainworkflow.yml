@@ -18,6 +18,6 @@ jobs:
           echo "first job"
           pwd
           ls -la ./.github/workflows/*
-      
-      - name: second-job
-        uses: ./.github/workflows/reusable.yml
+  
+  job2:
+    uses: ./.github/workflows/reusable.yml
