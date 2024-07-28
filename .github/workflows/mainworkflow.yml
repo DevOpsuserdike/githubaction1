@@ -19,5 +19,5 @@ jobs:
           pwd
           ls -la ./.github/workflows/*
       
-#      - name: second-job
-#        uses: ./.github/workflows/reusable.yml
+      - name: second-job
+        uses: ./.github/workflows/reusable.yml
